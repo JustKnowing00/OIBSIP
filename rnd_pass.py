@@ -153,6 +153,9 @@ def pass_generator(pass_len, lett_bool, wrd_bool, wrd_cnt,  num_bool, sym_bool):
 #===============================================================================================================================================
 
     remaning_len = total_len - curr_len
+    sym_selected = ""
+    num_selected = ""
+    char_selected = ""
     
     if bool_active > 1:                                                               #almost equally assigns the ramaning 30% - 50% password length to numbers, characters and symbold 
         while remaning_len >= 1:                                                          #assigns them till the entire password length is finished
