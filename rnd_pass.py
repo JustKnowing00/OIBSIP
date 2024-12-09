@@ -171,17 +171,20 @@ def pass_generator(pass_len, lett_bool, wrd_bool, wrd_cnt,  num_bool, sym_bool):
                 pass_list += char_selected
                 remaning_len -= len(char_selected)
 
-    elif bool_active == 1:                                                                 #if only one setting is active then assigns remaning spaces to the applied setting
+   elif bool_active == 1:                   #if only one setting is active then assigns remaining spaces to the applied setting
         if num_bool:
-            num_selected = random.sample(nums, remaning_len)
+            for i in range(0,remaning_len):
+                num_selected += random.choice(nums)
             pass_list += num_selected
 
         if sym_bool:
-            sym_selected = random.sample(syms, remaning_len)
+            for i in range(0,remaning_len):
+                sym_selected += random.choice(syms)
             pass_list += sym_selected
 
         if lett_bool:
-            char_selected = random.sample(lett, remaning_len)
+            for i in range(0,remaning_len):
+                char_selected += random.choice(lett)
             pass_list += char_selected
 
     random.shuffle(pass_list)
