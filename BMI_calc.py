@@ -1,5 +1,4 @@
-from colorama import Fore, init, Style
-import time
+from colorama import Fore, init, Style    # used to give color, style and a background to output text                         
 
 bmi = 0
 BMR = 0
@@ -8,13 +7,13 @@ body_fat = 0
 
 print("Welcome to BMI calculator !")
 print("Please select the unit of calculation: \n 1> Imperial \n 2> Metric")
-mode = int(input("Select option: "))
+mode = int(input("Select option: "))                        # imperial or metric unit selection
 while mode != 1 and mode != 2:
     print("Select appropriate option.")
     print("Please select the unit of calculation: \n 1> Imperial \n 2> Metric")
     mode = int(input("Select option: "))
 
-def bmi_bar(bmi_mapped, ranges, colors, length=100):
+def bmi_bar(bmi_mapped, ranges, colors, length=100):               #used to generate bar for the calculated bmi according to bmi and age
     bar = ""
     for i in range(1, length + 1):
         if i == bmi_mapped:
@@ -26,7 +25,7 @@ def bmi_bar(bmi_mapped, ranges, colors, length=100):
                     break
     return bar + Fore.RESET
 
-def fat_bar(gender, fat, low, high, bar_length=100):
+def fat_bar(gender, fat, low, high, bar_length=100):            #used to generate bar for body fat percentage according to fat, age and gender
     bar = ""
     
     for i in range(1, bar_length + 1):
@@ -41,7 +40,7 @@ def fat_bar(gender, fat, low, high, bar_length=100):
                 bar += Fore.MAGENTA + "="
     return bar + Fore.RESET
 
-def LBM_bar(gender, LBM, low, high, bar_length=100):
+def LBM_bar(gender, LBM, low, high, bar_length=100):        #used to generate bar for lean body mass percentage according to LBM, age and gender
     bar = ""
     
     for i in range(1, bar_length + 1):
@@ -56,11 +55,11 @@ def LBM_bar(gender, LBM, low, high, bar_length=100):
                 bar += Fore.MAGENTA + "="
     return bar + Fore.RESET
 
-def FFMI_bar(FFMI, low, high, bar_length=100):
+def FFMI_bar(FFMI, low, high, bar_length=100):            #used to generate bar for fat free mass index percentage according to FFMI, age and gender
     bar = ""
     
     for i in range(1, bar_length + 1):
-        if i == LBM:
+        if i == FFMI:
             bar += "█"  
         elif i < low or i > high:
             bar += Fore.WHITE + "="
@@ -69,7 +68,7 @@ def FFMI_bar(FFMI, low, high, bar_length=100):
 
     return bar + Fore.RESET
 
-def visual(age, gender, bmi, LBM, FFMI, body_fat, BMR):
+def visual(age, gender, bmi, LBM, FFMI, body_fat, BMR):   #used to provide actual output
     
     bmi_mapped = round(100*bmi/60)
     fat = round(body_fat)
@@ -124,7 +123,7 @@ def visual(age, gender, bmi, LBM, FFMI, body_fat, BMR):
     
     else:
         if age < 18:
-            print(f"Lean Body Mass : {LBM:.2f} {unit} : " + fat_bar(2, round(LBM), 80, 75))
+            print(f"Lean Body Mass : {LBM:.2f} {unit} : " + fat_bar(2, round(LBM), 75, 80))
         elif age < 65:
             print(f"Lean Body Mass : {LBM:.2f} {unit} : " + fat_bar(2, round(LBM), 60, 80))
         else:
@@ -133,14 +132,14 @@ def visual(age, gender, bmi, LBM, FFMI, body_fat, BMR):
     #------------------------------------------FAT FREE MASS INDEX----------------------------------------------------
 
     if age < 18:
-        print(f"Fat Free Mass Index : {FFMI:.2f} : " + fat_bar(1, round(LBM), 16, 21))
+        print(f"Fat Free Mass Index : {FFMI:.2f} : " + FFMI_bar(round(LBM), 16, 21))
     elif age < 65:
-        print(f"Fat Free Mass Index : {FFMI:.2f} : " + fat_bar(1, round(LBM), 18, 22))
+        print(f"Fat Free Mass Index : {FFMI:.2f} : " + FFMI_bar(round(LBM), 18, 22))
     else:
-        print(f"Fat Free Mass Index : {FFMI:.2f} : " + fat_bar(1, round(LBM), 16, 20))
+        print(f"Fat Free Mass Index : {FFMI:.2f} : " + FFMI_bar(round(LBM), 16, 20))
 
 
-def sex():
+def sex():                                   #gender selection
     print("Please select your gender: \n 1> Male \n 2> Female")
     gender = int(input("Select option: "))
     while gender != 1 and gender != 2 and gender != 3:
@@ -149,7 +148,7 @@ def sex():
         gender = int(input("Select option: "))
     return gender
 
-def imperial():
+def imperial():                                 #input for when imperial unit mode is selected
     age = int(input("Enter your Age: "))
     gender = sex()
     height_feet = int(input("Enter your height in feet: "))
@@ -168,7 +167,7 @@ def imperial():
 
     visual(age, gender, bmi, LBM, FFMI, body_fat, BMR)
 
-def metric():
+def metric():                                 #input for when metric unit mode is selected
     age = int(input("Enter your Age: "))
     gender = sex()
     height = int(input("Enter your height in centimeters: "))
@@ -185,7 +184,7 @@ def metric():
 
     visual(age, gender, bmi, LBM, FFMI, body_fat, BMR)
 
-if mode == 1:
+if mode == 1:                                  #is actually to start the entire process
     imperial()
 else:
     metric()
