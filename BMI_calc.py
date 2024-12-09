@@ -156,7 +156,7 @@ def imperial():
     height_inches = int(input("Enter your height in inches: "))
     weight = float(input("Enter your weight: "))
     height = height_feet/12 + height_inches
-    bmi = (weight*703 / (height ** 2))
+    bmi = (weight / (height ** 2))
 
     if gender == 1: 
         body_fat = (1.20 * bmi) + (0.23 * age) - 16.2
